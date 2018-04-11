@@ -1,4 +1,4 @@
-onverge <- function(data, factors = NULL){
+converge <- function(data, factors = NULL){
   p <- nrow(data$S)
 
   if (length(factors)==nrow(data$S)){
