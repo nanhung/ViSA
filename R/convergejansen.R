@@ -1,8 +1,8 @@
-convergejansen <- function(n, n.factors, fun){
+convergejansen <- function(n, n.factors, X, fun){
   df <- as.data.frame(matrix(nrow = n.factors, ncol=0))
   for (n in seq(n/10, n, n/10)){
-    X1 <- sobol.X(n)
-    X2 <- sobol.X(n)
+    X1 <- X(n)
+    X2 <- X(n)
     x <- soboljansen(model = NULL, X1, X2, nboot = 100) #
     y <- fun(x$X)
     t <- tell(x,y)
