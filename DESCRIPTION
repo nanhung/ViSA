@@ -1,12 +1,12 @@
 Package: ViSA
 Type: Package
-Title: Visualization of Sensitivity Amalysis
+Title: Visualization of Sensitivity Analysis
 Version: 0.1.0
 Author: Nan-Hung Hsieh
 Maintainer: Nan-Hung Hsieh <mail@nanhung.pw>
 Depends: R (>= 3.0.0)
 Imports: sensitivity 
-Description: Sensitivity analysis of simple complex model: visualization and convergence.
+Description: Visualization of the output result from sensitivity analysis
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
