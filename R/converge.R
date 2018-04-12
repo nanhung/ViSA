@@ -26,8 +26,8 @@ converge <- function(data, factors = NULL){
 plot.converge <- function(x){
   p <- 2
   pch = c(21, 24)
-  at <- 1 : n
   n <- nrow(x)
+  at <- 1 : n
   ylim <- c(0, 1)
   xlim <- c(1, n)
   plot(0, xlim = xlim, ylim = ylim, axes = FALSE,
