@@ -1,4 +1,4 @@
-convrge.plot<-function(df){
+converge.plot<-function(df){
   x<-as.numeric(names(df))
   plot(x, df[1,], type = "b", xlab = "n", ylab = "Convergence index", ylim = c(0,1))
   abline(0.1, 0, lty = 2)
