@@ -22,3 +22,22 @@ converge <- function(data, factors = NULL){
   cat("\n")
   return(print(X))
 }
+
+plot.converge <- function(x){
+  p <- 2
+  pch = c(21, 24)
+  at <- 1 : n
+  n <- nrow(x)
+  ylim <- c(0, 1)
+  xlim <- c(1, n)
+  plot(0, xlim = xlim, ylim = ylim, axes = FALSE,
+       xlab = "", ylab = "", type = "n")
+  axis(side = 1, at = at, labels = rownames(x))
+  axis(side = 2)
+  points(x$`first order`, xlim = c(1, n + 1), ylim = ylim, pch = pch[1])
+  points(x$`total order`, xlim = c(1, n + 1), ylim = ylim, pch = pch[2])
+  abline(0.1, 0, lty = 2)
+  abline(0.05, 0, lty = 3)
+  box()
+  legend(x = "topright", legend = c("main effect", "total effect"), pch = pch)
+}
