@@ -1,5 +1,4 @@
-# ViSA
-Visualization of Sensitivity analysis 
+# ViSA: Visualization of Sensitivity analysis 
 
-- Install the package in R:  
-  `devtools::install_github("nanhung/ViSA")`
+This R package can be installed via the devtools package using:  
+`devtools::install_github("nanhung/ViSA")`
