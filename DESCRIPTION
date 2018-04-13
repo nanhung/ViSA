@@ -1,12 +1,9 @@
 Package: ViSA
-Type: Package
-Title: Visualization of Sensitivity Analysis
 Version: 0.1.0
+Title: Visualization of Sensitivity Analysis
 Author: Nan-Hung Hsieh
 Maintainer: Nan-Hung Hsieh <mail@nanhung.pw>
 Depends: R (>= 3.0.0)
 Imports: sensitivity 
-Description: Visualization of the output result from sensitivity analysis
+Description: Functions to visualize and check the convergence of the output result from sensitivity package
 License: GPL (>= 3)
-Encoding: UTF-8
-LazyData: true
