@@ -1,4 +1,4 @@
-trace <- function(data, index = "T-ci"){
+convergeplot <- function(data, index = "T-ci"){
   
   x<-as.numeric(names(data$S_ci))
   
