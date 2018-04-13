@@ -5,5 +5,5 @@ Author: Nan-Hung Hsieh
 Maintainer: Nan-Hung Hsieh <mail@nanhung.pw>
 Depends: R (>= 3.0.0)
 Imports: sensitivity 
-Description: Functions to visualize and check the convergence of the output result from sensitivity package
+Description: Functions to check the convergence and visualize the output result from sensitivity package
 License: GPL (>= 3)
