@@ -1,6 +1,5 @@
 export("ViSA")
 import(sensitivity)
-importFrom("nodeplot")
 importFrom("graphics", "abline", "axis", "box", "image", "layout",
            "lines", "par", "plot", "points", "segments", "strwidth",
            "text", "Axis")
