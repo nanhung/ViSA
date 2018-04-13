@@ -1,4 +1,4 @@
-convergeplot <- function(data, index = "T-ci"){
+converge.plot <- function(data, index = "T-ci"){
   
   x<-as.numeric(names(data$S_ci))
   
