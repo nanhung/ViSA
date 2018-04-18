@@ -17,6 +17,12 @@ MC_Array <- function(files, start_sampling = 0){
   x
 }
 
+# Show parameter names 
+MC_param_name <- function(x){
+  dimnames(x)[[3]] 
+}
+
+
 # Select the input parameters
 MC_param_select <- function(x, first, last){
   pars_name <- dimnames(x)[[3]]
