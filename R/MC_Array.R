@@ -1,5 +1,5 @@
 # Transfer the MCSim output
-MC_Array <- function(files, start_sampling){
+MC_Array <- function(files, start_sampling = 0){
   # files = list.files(pattern="*.mcmc.out")
   files <- files
   posterior <- lapply(files, read.delim)
