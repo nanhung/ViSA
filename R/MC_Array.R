@@ -30,3 +30,22 @@ MC_param_select <- function(x, first, last){
   end <- which(pars_name == last)
   pars_name[start:end]  
 }
+
+# Density plot
+MC_dens<-function(x, param){
+  par(mar=c(2,2,3,1))
+  myData <- as.data.frame(x[,,param])
+  dens <- apply(myData, 2, density)
+  if (is.character(param)==TRUE){
+    plot(NA, 
+         xlim=range(sapply(dens, "[", "x")), 
+         ylim=range(sapply(dens, "[", "y")), 
+         xlab="", ylab="", main = param)
+  } else {
+    plot(NA, 
+         xlim=range(sapply(dens, "[", "x")), 
+         ylim=range(sapply(dens, "[", "y")), 
+         xlab="", ylab="", main = dimnames(x)[[3]][param])
+  }
+  mapply(lines, dens, col=1:length(dens))
+}
