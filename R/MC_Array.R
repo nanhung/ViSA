@@ -18,7 +18,7 @@ MC_Array <- function(files, start_sampling = 0){
 }
 
 # Show parameter names 
-MC_param_name <- function(x){
+MC_param_names <- function(x){
   dimnames(x)[[3]] 
 }
 
