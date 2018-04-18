@@ -34,8 +34,8 @@ MC_param_select <- function(x, first, last){
 # Density plot
 MC_dens<-function(x, param){
   par(mar=c(2,2,3,1))
-  myData <- as.data.frame(x[,,param])
-  dens <- apply(myData, 2, density)
+  df <- as.data.frame(x[,,param])
+  dens <- apply(df, 2, density)
   if (is.character(param)==TRUE){
     plot(NA, 
          xlim=range(sapply(dens, "[", "x")), 
