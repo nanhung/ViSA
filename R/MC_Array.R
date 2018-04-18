@@ -49,3 +49,23 @@ MC_dens<-function(x, param){
   }
   mapply(lines, dens, col=1:length(dens))
 }
+
+MC_trace<-function(x, param){
+  df <- as.data.frame(x[,,param])
+  
+  par(mar=c(2,2,3,1))
+  if (is.character(param)==TRUE){
+    plot(df[,1],type="l", 
+         ylim=range(df), 
+         xlab=" ", ylab="",
+         main = param)
+  } else{
+    plot(df[,1],type="l", 
+         ylim=range(df), 
+         xlab=" ", ylab="",
+         main = dimnames(x)[[3]][param])
+  }
+  for (i in 2:dim(x)[2]) {
+    lines(df[,i],col=i)
+  }
+}
