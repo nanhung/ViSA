@@ -32,7 +32,7 @@ MC_param_select <- function(x, first, last){
 }
 
 # Density plot
-MC_dens<-function(x, param){
+MC_dens<-function(x, param, dprior = NULL, dprior.arg, n = 1000, lty = 2){
   par(mar=c(2,2,3,1))
   df <- as.data.frame(x[,,param])
   dens <- apply(df, 2, density)
@@ -48,6 +48,13 @@ MC_dens<-function(x, param){
          xlab="", ylab="", main = dimnames(x)[[3]][param])
   }
   mapply(lines, dens, col=1:length(dens))
+  
+  if (is.null(dprior) == FALSE){
+    mapply(lines, dens, col=1:length(dens))
+    plot.range <- seq(par("usr")[1], par("usr")[2], length.out = n)
+    prior.dens <- do.call(dprior, c(list(x=plot.range), dprior.arg))
+    lines(plot.range, prior.dens, lty=lty)
+  } 
 }
 
 MC_trace<-function(x, param){
