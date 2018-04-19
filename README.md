@@ -1,4 +1,4 @@
-# ViSA: Visualization of Sensitivity analysis
+# ViSA: Visualization of Sensitivity Analysis
 
 **ViSA** is a R package that aims to apply the sensitivity analysis workflow to quantify and visualize the parameter sensitivity from multi-compartment models. It includes some functions that can use to check the convergence as well as graphical checking the output from R [**sensitivity**](https://cran.r-project.org/web/packages/sensitivity/index.html) package. 
 
