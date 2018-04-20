@@ -76,3 +76,19 @@ MC_trace<-function(x, param){
     lines(df[,i],col=i)
   }
 }
+
+MC_running_mean <- function (x, param) {
+  par(mar = c(2, 2, 3, 1))
+  X <- x[ , 1, "iter"]
+  Y <- apply(x[ , , param], 2, function(x) cumsum(x)/seq_along(x))
+  if (is.character(param) == TRUE) {
+    plot(X , Y[,1], type = "l", ylim = range(Y), xlab = " ", 
+         ylab = "", main = param)
+  } else {
+    plot(X , Y[,1], type = "l", ylim = range(Y), xlab = " ", 
+         ylab = "", main = dimnames(x)[[3]][param])
+  }
+  for (i in 2:dim(x)[2]) {
+    lines(X, Y[, i], col = i)
+  }
+}
