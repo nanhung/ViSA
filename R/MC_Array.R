@@ -58,22 +58,24 @@ MC_dens<-function(x, param, dprior = NULL, dprior.arg, n = 1000, lty = 2){
 }
 
 MC_trace<-function(x, param){
-  df <- as.data.frame(x[,,param])
   
+  X <- x[, 1, "iter"]
+  df <- as.data.frame(x[,,param])
+
   par(mar=c(2,2,3,1))
   if (is.character(param)==TRUE){
-    plot(df[,1],type="l", 
+    plot(X, df[,1],type="l", 
          ylim=range(df), 
          xlab=" ", ylab="",
          main = param)
   } else{
-    plot(df[,1],type="l", 
+    plot(X, df[,1],type="l", 
          ylim=range(df), 
          xlab=" ", ylab="",
          main = dimnames(x)[[3]][param])
   }
   for (i in 2:dim(x)[2]) {
-    lines(df[,i],col=i)
+    lines(X, df[,i], col=i)
   }
 }
 
