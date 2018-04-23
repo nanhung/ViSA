@@ -121,8 +121,8 @@ tell.rfast99 <- function(x, y = NULL, ...) {
   x$V <- V
   x$D1 <- D1
   x$Dt <- Dt
-  x$S
-  x$T
+  x$S <- S
+  x$T <- T
   
   assign(id, x, parent.frame())
 }
