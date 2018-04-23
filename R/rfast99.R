@@ -132,9 +132,9 @@ print.rfast99 <- function(x, ...) {
   if (! is.null(x$y)) {
     cat("\nModel runs:", dim(x$y)[1], "\n")
     cat("\nFirst order indices::\n")
-    print(S)
+    print(x$S)
     cat("\nFirst order indices::\n")
-    print(T)
+    print(x$T)
   } else {
     cat("(empty)\n")
   }
