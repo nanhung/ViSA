@@ -43,31 +43,30 @@ rfast99 <- function(factors, n, M = 4, omega = NULL,
   
   # transformation to get points in the x-space
   
-    dim <- c(n * p, rep, p)
+  dim <- c(n * p, rep, p)
   
-    a <- array((n * p):( n * p * rep * p), dim = dim)
-
-    #X <- as.data.frame(matrix(nrow = n * p, ncol = p))
-    #X <- as.data.frame(x[,1,])
-    
-    for (k in 1:rep){
-      X <- a[,k,]
-      
-      colnames(X) <- X.labels
-      omega2 <- numeric(p)
-      for (i in 1 : p) {
-        omega2[i] <- omega[1]
-        omega2[-i] <- omega[-1]
-        l <- seq((i - 1) * n + 1, i * n)
-        for (j in 1 : p) {
-          v <- runif(1, min = 0, max = 2 * pi) # add random phase shift
-          g <- 0.5 + 1 / pi * asin(sin(omega2[j] * s + v))
-          X[l, j] <- do.call(q[j], c(list(p = g), q.arg[[j]]))
-        }      
-      }
-      a[,k,] <- X
+  a <- array((n * p):( n * p * rep * p), dim = dim)
+  
+  #X <- as.data.frame(matrix(nrow = n * p, ncol = p))
+  #X <- as.data.frame(x[,1,])
+  
+  for (k in 1:rep){
+    X <- a[,k,]
+    omega2 <- numeric(p)
+    for (i in 1 : p) {
+      omega2[i] <- omega[1]
+      omega2[-i] <- omega[-1]
+      l <- seq((i - 1) * n + 1, i * n)
+      for (j in 1 : p) {
+        v <- runif(1, min = 0, max = 2 * pi) # add random phase shift
+        g <- 0.5 + 1 / pi * asin(sin(omega2[j] * s + v))
+        X[l, j] <- do.call(q[j], c(list(p = g), q.arg[[j]]))
+      }      
     }
-
+    a[,k,] <- X
+    dimnames(a)[[3]] <- X.labels
+  }
+  
   # object of class "fast18"
   
   x <- list(M = M, s = s, omega = omega, a = a, rep = rep, factors = factors,
@@ -76,6 +75,7 @@ rfast99 <- function(factors, n, M = 4, omega = NULL,
   
   return(x)
 }
+
 
 tell.rfast99 <- function(x, y = NULL, ...) {
   
