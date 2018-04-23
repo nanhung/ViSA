@@ -1,21 +1,26 @@
 # Transfer the MCSim output
 MC_Array <- function(files, start_sampling = 0){
-  # files = list.files(pattern="*.mcmc.out")
-  files <- files
+  
+  if (class(files) == "character"){
   posterior <- lapply(files, read.delim)
+  } else if (class(files) == "list"){
+    posterior <- files
+  }
+  
   n.chains <- length(posterior)
-  start_sampling <- start_sampling
   sample_number <- dim(posterior[[1]])[1] - start_sampling
   dim <- c(sample_number,n.chains,dim(posterior[[1]])[2])
   n_row <- dim(posterior[[1]])[1]
   n_iter <- dim(posterior[[1]])[2]
   x<-array(sample_number:(n_row*n.chains*n_iter), dim = dim)
+  
   for(i in 1 : n.chains){
     x[,i,]<-as.matrix(posterior[[i]][(start_sampling+1):n_row,])  
   }
+  
   dimnames(x)[[3]] <- names(posterior[[1]])
   x
-}
+}  
 
 # Show parameter names 
 MC_param_names <- function(x){
