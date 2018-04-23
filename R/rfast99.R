@@ -106,10 +106,6 @@ tell.rfast99 <- function(x, y = NULL, ...) {
     }
    }
   
-  x$V <- V
-  x$D1 <- D1
-  x$Dt <- Dt
-  
   S_original <- apply(x$D1 / x$V, 1, mean)
   S_min_ci <- apply(x$D1 / x$V, 1, quantile, probs= c((1-0.95)/2))
   S_max_ci <- apply(x$D1 / x$V, 1, quantile, probs= c(1-(1-0.95)/2))
@@ -121,6 +117,12 @@ tell.rfast99 <- function(x, y = NULL, ...) {
   T <- data.frame(T_original, T_min_ci, T_max_ci)
   
   names(S) <- names(T) <- c("original", "min. c.i.", "max. c.i.")
+  
+  x$V <- V
+  x$D1 <- D1
+  x$Dt <- Dt
+  x$S
+  x$T
   
   assign(id, x, parent.frame())
 }
