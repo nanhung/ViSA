@@ -106,14 +106,14 @@ tell.rfast99 <- function(x, y = NULL, ...) {
     }
    }
   
-  S_original <- apply(x$D1 / x$V, 1, mean)
-  S_min_ci <- apply(x$D1 / x$V, 1, quantile, probs= c((1-0.95)/2))
-  S_max_ci <- apply(x$D1 / x$V, 1, quantile, probs= c(1-(1-0.95)/2))
+  S_original <- apply(D1 / V, 1, mean)
+  S_min_ci <- apply(D1 / V, 1, quantile, probs= c((1-0.95)/2))
+  S_max_ci <- apply(D1 / V, 1, quantile, probs= c(1-(1-0.95)/2))
   S <- data.frame(S_original, S_min_ci, S_max_ci)
     
-  T_original <- apply(1 - x$Dt / x$V, 1, mean)
-  T_min_ci <- apply(1 - x$Dt / x$V, 1, quantile, probs= c((1-0.95)/2))
-  T_max_ci <- apply(1 - x$Dt / x$V, 1, quantile, probs= c(1-(1-0.95)/2))
+  T_original <- apply(1 - Dt / V, 1, mean)
+  T_min_ci <- apply(1 - Dt / V, 1, quantile, probs= c((1-0.95)/2))
+  T_max_ci <- apply(1 - Dt / V, 1, quantile, probs= c(1-(1-0.95)/2))
   T <- data.frame(T_original, T_min_ci, T_max_ci)
   
   names(S) <- names(T) <- c("original", "min. c.i.", "max. c.i.")
