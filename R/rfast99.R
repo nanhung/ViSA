@@ -70,7 +70,7 @@ rfast99 <- function(factors, n, M = 4, omega = NULL,
 
   # object of class "fast18"
   
-  x <- list(M = M, s = s, omega = omega, a = a, rep = rep,
+  x <- list(M = M, s = s, omega = omega, a = a, rep = rep, factors = factors,
             call = match.call())
   class(x) <- "rfast99"
   
