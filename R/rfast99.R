@@ -1,5 +1,5 @@
 rfast99 <- function(factors, n, M = 4, omega = NULL,
-                    q = NULL, q.arg = NULL, rep = 1, ...) {
+                    q = NULL, q.arg = NULL, replicate = 1, conf = 0.95, ...) {
   
   # factors numbers and names
   
@@ -43,14 +43,10 @@ rfast99 <- function(factors, n, M = 4, omega = NULL,
   
   # transformation to get points in the x-space
   
-  dim <- c(n * p, rep, p)
+  dim <- c(n * p, replicate, p)
+  a <- array((n * p):( n * p * replicate * p), dim = dim)
   
-  a <- array((n * p):( n * p * rep * p), dim = dim)
-  
-  #X <- as.data.frame(matrix(nrow = n * p, ncol = p))
-  #X <- as.data.frame(x[,1,])
-  
-  for (k in 1:rep){
+  for (k in 1:replicate){
     X <- a[,k,]
     omega2 <- numeric(p)
     for (i in 1 : p) {
@@ -64,18 +60,17 @@ rfast99 <- function(factors, n, M = 4, omega = NULL,
       }      
     }
     a[,k,] <- X
-    dimnames(a)[[3]] <- X.labels
   }
+  dimnames(a)[[3]] <- X.labels
   
   # object of class "fast18"
   
-  x <- list(M = M, s = s, omega = omega, a = a, rep = rep, factors = factors,
-            call = match.call())
+  x <- list(M = M, s = s, omega = omega, a = a, factors = factors, 
+            replicate = replicate, conf = conf, call = match.call())
   class(x) <- "rfast99"
   
   return(x)
 }
-
 
 tell.rfast99 <- function(x, y = NULL, ...) {
   
@@ -104,19 +99,22 @@ tell.rfast99 <- function(x, y = NULL, ...) {
       D1[i, j] <- 2 * sum(Sp[(1 : x$M) * x$omega[1]])
       Dt[i, j] <- 2 * sum(Sp[1 : (x$omega[1] / 2)])
     }
-   }
+  }
   
   S_original <- apply(D1 / V, 1, mean)
-  S_min_ci <- apply(D1 / V, 1, quantile, probs= c((1-0.95)/2))
-  S_max_ci <- apply(D1 / V, 1, quantile, probs= c(1-(1-0.95)/2))
-  S <- data.frame(S_original, S_min_ci, S_max_ci)
-    
-  T_original <- apply(1 - Dt / V, 1, mean)
-  T_min_ci <- apply(1 - Dt / V, 1, quantile, probs= c((1-0.95)/2))
-  T_max_ci <- apply(1 - Dt / V, 1, quantile, probs= c(1-(1-0.95)/2))
-  T <- data.frame(T_original, T_min_ci, T_max_ci)
+  S_se <- apply(D1 / V, 1, function(x) sqrt(var(x)/length(x)))
+  S_min_ci <- apply(D1 / V, 1, quantile, probs= c((1-x$conf)/2))
+  S_max_ci <- apply(D1 / V, 1, quantile, probs= c(1-(1-x$conf)/2))
+  S <- data.frame(S_original, S_se, S_min_ci, S_max_ci)
   
-  names(S) <- names(T) <- c("original", "min. c.i.", "max. c.i.")
+  T_original <- apply(1 - Dt / V, 1, mean)
+  T_se <- apply(1 - Dt / V, 1, function(x) sqrt(var(x)/length(x)))
+  T_min_ci <- apply(1 - Dt / V, 1, quantile, probs= c((1-x$conf)/2))
+  T_max_ci <- apply(1 - Dt / V, 1, quantile, probs= c(1-(1-x$conf)/2))
+  T <- data.frame(T_original, T_se, T_min_ci, T_max_ci)
+  
+  names(S) <- names(T) <- c("original", "std. error", "min. c.i.", "max. c.i.")
+  row.names(S) <- row.names(T) <- dimnames(x$a)[[3]]
   
   x$V <- V
   x$D1 <- D1
@@ -133,7 +131,7 @@ print.rfast99 <- function(x, ...) {
     cat("\nModel runs:", dim(x$y)[1], "\n")
     cat("\nFirst order indices::\n")
     print(x$S)
-    cat("\nFirst order indices::\n")
+    cat("\nTotal order indices::\n")
     print(x$T)
   } else {
     cat("(empty)\n")
