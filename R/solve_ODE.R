@@ -1,4 +1,4 @@
-solve_ode <- function(x, times, parameters, initState, 
+solve_ODE <- function(x, times, parameters, initState, 
                       func, jacfunc, initfunc, nout = 1, outnames){
   n <- length(x$s)  
   factors <- length(x$factors)
