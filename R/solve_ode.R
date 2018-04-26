@@ -26,5 +26,6 @@ solve_ode <- function(x, times, parameters, initState,
       }
     }
   }
+  dimnames(y)[[3]]<-times
   return(y)
 }
