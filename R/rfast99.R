@@ -113,10 +113,10 @@ tell.rfast99 <- function(x, y = NULL, ...) {
   T_max_ci <- apply(1 - Dt / V, 1, quantile, probs= c(1-(1-x$conf)/2))
   T <- data.frame(T_original, T_se, T_min_ci, T_max_ci)
   
-  I_original <- apply(1 - x$Dt / x$V - x$D1 / x$V, 1, mean)              
-  I_se <- apply(1 - x$Dt / x$V - x$D1 / x$V, 1, function(x) sqrt(var(x)/length(x)))
-  I_min_ci <- apply(1 - x$Dt / x$V - x$D1 / x$V, 1, quantile, probs= c((1-x$conf)/2))
-  I_max_ci <- apply(1 - x$Dt / x$V - x$D1 / x$V, 1, quantile, probs= c(1-(1-x$conf)/2))
+  I_original <- apply(1 - Dt / V - D1 / V, 1, mean)              
+  I_se <- apply(1 - Dt / V - D1 / V, 1, function(x) sqrt(var(x)/length(x)))
+  I_min_ci <- apply(1 - Dt / V - D1 / V, 1, quantile, probs= c((1-x$conf)/2))
+  I_max_ci <- apply(1 - Dt / V - D1 / V, 1, quantile, probs= c(1-(1-x$conf)/2))
   I <- data.frame(I_original, I_se, I_min_ci, I_max_ci)
                 
   names(I) <- names(S) <- names(T) <- c("original", "std. error", "min. c.i.", "max. c.i.")
