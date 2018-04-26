@@ -138,6 +138,8 @@ print.rfast99 <- function(x, ...) {
     cat("\nModel runs:", dim(x$y)[1], "\n")
     cat("\nFirst order indices::\n")
     print(x$S)
+    cat("\nInteraction indices::\n")
+    print(x$I)
     cat("\nTotal order indices::\n")
     print(x$T)
   } else {
