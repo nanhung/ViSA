@@ -131,10 +131,10 @@ tell.rfast99 <- function(x, y = NULL, ...) {
   
   assign(id, x, parent.frame())
 }
-
+                
 print.rfast99 <- function(x, ...) {
   cat("\nCall:\n", deparse(x$call), "\n", sep = "")
-  if (! is.null(x$y)) {
+  if (! is.null(x$y) && ! is.null(x$S)) {
     cat("\nModel runs:", dim(x$y)[1], "\n")
     cat("\nFirst order indices:\n")
     print(x$S)
