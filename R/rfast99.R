@@ -244,7 +244,7 @@ tell2 <- function(x, y){
   id <- deparse(substitute(x))
 
   for ( i in 1:length(dimnames(y)[[3]])){
-    X <- tell(x, y[,,i])
+    X <- tell.rfast99(x, y[,,i])
     if ( i == 1) { # initialize
       x$mSI <- X$S[,"original"]
       x$tSI <- X$T[,"original"]
