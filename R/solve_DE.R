@@ -31,7 +31,7 @@ solve_DE <- function(fun = NULL, x, times, parameters, initState,
     for (i in 1 : dim(y)[2]) { # Replicate
       for (j in 1 : dim(y)[1]) { # Model evaluation
         parameters <- x$a[j,i,]
-        tmp <- fun(parameters, t)
+        tmp <- fun(parameters, times)
         
         for (k in 1 : dim(y)[3]) { # Output time
           y[j,i,k] <- tmp[k]
