@@ -238,3 +238,31 @@ nodeplot <- function(x, xlim = NULL, ylim = NULL, labels = TRUE,
   points(at, xx, col = col, pch = pch, bg = bg)
 }
                 
+
+tell2 <- function(x, y){
+  
+  id <- deparse(substitute(x))
+
+  for ( i in 1:length(dimnames(y)[[3]])){
+    X <- tell(x, y[,,i])
+    if ( i == 1) { # initialize
+      x$mSI <- X$S[,"original"]
+      x$tSI <- X$T[,"original"]
+      x$mCI <- X$S[,"max. c.i."] - X$S[,"min. c.i."]
+      x$tCI <- X$T[,"max. c.i."] - X$T[,"min. c.i."]
+    } else { # accumulate
+      x$mSI <- rbind(x$mSI, X$S[,"original"])
+      x$tSI <- rbind(x$tSI, X$T[,"original"])
+      x$mCI <- rbind(x$mCI, X$S[,"max. c.i."] - X$S[,"min. c.i."])
+      x$tCI <- rbind(x$tCI, X$T[,"max. c.i."] - X$T[,"min. c.i."])
+    }
+  }
+  colnames(x$mSI) <- colnames(x$tSI) <- colnames(x$mCI) <- colnames(x$tCI) <- rownames(x$S)
+  rownames(x$mSI) <- rownames(x$tSI) <- rownames(x$mCI) <- rownames(x$tCI) <- dimnames(y)[[3]]
+  
+  x$S<-NULL
+  x$I<-NULL
+  x$T<-NULL
+  
+  assign(id, x, parent.frame())
+}
