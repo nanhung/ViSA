@@ -1,7 +1,7 @@
 solve_DE <- function(fun = NULL, x, times, parameters, initState, 
                       func, jacfunc, initfunc, nout = 1, outnames){
   n <- length(x$s)  
-  factors <- length(x$factors)
+  factors <- ifelse (class(x$factors) == "character", length(x$factors), factors) 
   replicate <- x$rep
   out <- length(times)
   y <- array(1:replicate*n*factors*out, 
