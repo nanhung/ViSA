@@ -1,4 +1,4 @@
-solve_fun <- function(x, times = NULL, parameters, initState, 
+solve_fun <- function(x, times = NULL, parameters, initState, dllname,
                       func, jacfunc, initfunc, nout = 1, outnames,
                       model = NULL){
   n <- length(x$s)  
@@ -21,8 +21,8 @@ solve_fun <- function(x, times = NULL, parameters, initState,
           
           # Integrate
           tmp <- deSolve::ode(initState, inputs, func = func, parms = parameters, 
-                     jacfunc = jacfunc, dllname = mName, 
-                     initfunc = initfunc, nout = nout, outnames = outnames)
+                              jacfunc = jacfunc, dllname = dllname, 
+                              initfunc = initfunc, nout = nout, outnames = outnames)
           y[j,i,k] <- tmp[2, outnames]
         }
       }
@@ -43,4 +43,3 @@ solve_fun <- function(x, times = NULL, parameters, initState,
   dimnames(y)[[3]]<-times
   return(y)
 }
-
