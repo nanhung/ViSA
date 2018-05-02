@@ -20,7 +20,7 @@ solve_fun <- function(x, times = NULL, parameters, initState,
           }
           
           # Integrate
-          tmp <- ode(initState, inputs, func = func, parms = parameters, 
+          tmp <- deSolve::ode(initState, inputs, func = func, parms = parameters, 
                      jacfunc = jacfunc, dllname = mName, 
                      initfunc = initfunc, nout = nout, outnames = outnames)
           y[j,i,k] <- tmp[2, outnames]
