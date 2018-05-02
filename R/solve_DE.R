@@ -1,13 +1,11 @@
-
-solve_DE <- function(x, times, parameters, initState, 
+solve_fun <- function(x, times = NULL, parameters, initState, 
                       func, jacfunc, initfunc, nout = 1, outnames,
                       model = NULL){
   n <- length(x$s)  
   factors <- ifelse (class(x$factors) == "character", length(x$factors), x$factors) 
   replicate <- x$rep
-  out <- length(times)
-  y <- array(1:replicate*n*factors*out, 
-             dim = c(n * factors, replicate, out))
+  out <- ifelse (is.null(times), 1, length(times))
+  y <- array(dim = c(n * factors, replicate, out), NA)
   
   if (is.null(model) == TRUE){
     for (k in 1 : dim(y)[3]) { #outputs
@@ -32,8 +30,9 @@ solve_DE <- function(x, times, parameters, initState,
   } else {
     for (i in 1 : dim(y)[2]) { # Replicate
       for (j in 1 : dim(y)[1]) { # Model evaluation
+        
         parameters <- x$a[j,i,]
-        tmp <- model(parameters, times)
+        if (is.null(times)) tmp <- model(parameters) else tmp <- model(parameters, times)
         
         for (k in 1 : dim(y)[3]) { # Output time
           y[j,i,k] <- tmp[k]
@@ -44,3 +43,4 @@ solve_DE <- function(x, times, parameters, initState,
   dimnames(y)[[3]]<-times
   return(y)
 }
+
