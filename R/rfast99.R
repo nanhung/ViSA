@@ -242,27 +242,47 @@ nodeplot <- function(x, xlim = NULL, ylim = NULL, labels = TRUE,
 tell2 <- function(x, y){
   
   id <- deparse(substitute(x))
-
-  for ( i in 1:length(dimnames(y)[[3]])){
-    X <- tell.rfast99(x, y[,,i])
-    if ( i == 1) { # initialize
-      x$mSI <- X$S[,"original"]
-      x$tSI <- X$T[,"original"]
-      x$mCI <- X$S[,"max. c.i."] - X$S[,"min. c.i."]
-      x$tCI <- X$T[,"max. c.i."] - X$T[,"min. c.i."]
-    } else { # accumulate
-      x$mSI <- rbind(x$mSI, X$S[,"original"])
-      x$tSI <- rbind(x$tSI, X$T[,"original"])
-      x$mCI <- rbind(x$mCI, X$S[,"max. c.i."] - X$S[,"min. c.i."])
-      x$tCI <- rbind(x$tCI, X$T[,"max. c.i."] - X$T[,"min. c.i."])
+  
+  if (dim(y)[3] == 1){
+    X <- tell.rfast99(x, y[,,1])
+    x$mSI <- X$S[,"original"]
+    x$iSI <- X$I[,"original"]
+    x$tSI <- X$T[,"original"]
+    x$mCI <- X$S[,"max. c.i."] - X$S[,"min. c.i."]
+    x$iCI <- X$I[,"max. c.i."] - X$I[,"min. c.i."]    
+    x$tCI <- X$T[,"max. c.i."] - X$T[,"min. c.i."]
+  } else {
+    for ( i in 1:length(dimnames(y)[[3]])){
+      X <- tell.rfast99(x, y[,,i])
+      if ( i == 1) { # initialize
+        x$mSI <- X$S[,"original"]
+        x$iSI <- X$I[,"original"]
+        x$tSI <- X$T[,"original"]
+        x$mCI <- X$S[,"max. c.i."] - X$S[,"min. c.i."]
+        x$iCI <- X$I[,"max. c.i."] - X$I[,"min. c.i."]
+        x$tCI <- X$T[,"max. c.i."] - X$T[,"min. c.i."]
+      } else { # accumulate
+        x$mSI <- rbind(x$mSI, X$S[,"original"])
+        x$iSI <- rbind(x$iSI, X$I[,"original"])
+        x$tSI <- rbind(x$tSI, X$T[,"original"])
+        x$mCI <- rbind(x$mCI, X$S[,"max. c.i."] - X$S[,"min. c.i."])
+        x$iCI <- rbind(x$iCI, X$I[,"max. c.i."] - X$I[,"min. c.i."])
+        x$tCI <- rbind(x$tCI, X$T[,"max. c.i."] - X$T[,"min. c.i."])
+      }
     }
   }
-  colnames(x$mSI) <- colnames(x$tSI) <- colnames(x$mCI) <- colnames(x$tCI) <- rownames(x$S)
-  rownames(x$mSI) <- rownames(x$tSI) <- rownames(x$mCI) <- rownames(x$tCI) <- dimnames(y)[[3]]
   
+  if (dim(y)[3] == 1){
+    names(x$mSI) <- names(x$tSI) <- names(x$mCI) <- names(x$tCI) <- dimnames(x$a)[[3]]
+  } else {
+    rownames(x$mSI) <- rownames(x$iSI) <- rownames(x$tSI) <- rownames(x$mCI) <- rownames(x$iCI) <- rownames(x$tCI) <- dimnames(y)[[3]]
+    colnames(x$mSI) <- colnames(x$iSI) <- colnames(x$tSI) <- colnames(x$mCI) <- colnames(x$iCI) <- colnames(x$tCI) <- rownames(x$S)
+  }
+
   x$S<-NULL
   x$I<-NULL
   x$T<-NULL
   
   assign(id, x, parent.frame())
 }
+
