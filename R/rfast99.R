@@ -284,3 +284,23 @@ tell2 <- function(x, y){
   
   assign(id, x, parent.frame())
 }
+
+print.rfast99 <- function(x, digits = 4){
+  cat("\nCall:\n", deparse(x$call), "\n", sep = "")
+  cat("\n")
+  cat("\nSensitivity Indices", "\n")
+  cat("\nfirst order:", "\n")
+  print(round(x$mSI, digits = digits))
+  cat("\ninteraction:", "\n")
+  print(round(x$iSI, digits = digits))
+  cat("\ntotal order:", "\n")
+  print(round(x$tSI, digits = digits))
+  cat("\n")
+  cat("\nConvergence Indices", "\n")
+  cat("\nfirst order:", "\n")
+  print(round(x$mCI, digits = digits))
+  cat("\ninteraction:", "\n")
+  print(round(x$iCI, digits = digits))
+  cat("\ntotal order:", "\n")
+  print(round(x$tCI, digits = digits))
+}
