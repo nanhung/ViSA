@@ -238,7 +238,6 @@ nodeplot <- function(x, xlim = NULL, ylim = NULL, labels = TRUE,
   points(at, xx, col = col, pch = pch, bg = bg)
 }
                 
-
 tell2 <- function(x, y){
   
   id <- deparse(substitute(x))
@@ -273,16 +272,15 @@ tell2 <- function(x, y){
   }
   
   if (dim(y)[3] == 1){
-    names(x$mSI) <- names(x$tSI) <- names(x$mCI) <- names(x$tCI) <- dimnames(x$a)[[3]]
+    names(x$mSI) <- names(x$iSI) <- names(x$tSI) <- names(x$mCI) <- names(x$iCI) <- names(x$tCI) <- dimnames(x$a)[[3]]
   } else {
     rownames(x$mSI) <- rownames(x$iSI) <- rownames(x$tSI) <- rownames(x$mCI) <- rownames(x$iCI) <- rownames(x$tCI) <- dimnames(y)[[3]]
     colnames(x$mSI) <- colnames(x$iSI) <- colnames(x$tSI) <- colnames(x$mCI) <- colnames(x$iCI) <- colnames(x$tCI) <- rownames(x$S)
   }
-
+  
   x$S<-NULL
   x$I<-NULL
   x$T<-NULL
   
   assign(id, x, parent.frame())
 }
-
