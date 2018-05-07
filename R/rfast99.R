@@ -1,3 +1,5 @@
+check <- function(x, SI, CI) UseMethod("check")
+
 rfast99 <- function(factors, n, M = 4, omega = NULL,
                     q = NULL, q.arg = NULL, replicate = 1, conf = 0.95, ...) {
   
